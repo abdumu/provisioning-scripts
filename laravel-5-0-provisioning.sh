@@ -62,7 +62,7 @@ mv composer.phar /usr/local/bin/composer
 # Set Some PHP CLI Settings
 sudo sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/cli/php.ini
 sudo sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/cli/php.ini
-sudo sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php5/cli/php.ini
+sudo sed -i "s/memory_limit = .*/memory_limit = 128M/" /etc/php5/cli/php.ini
 sudo sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php5/cli/php.ini
 
 # Install Nginx & PHP-FPM
@@ -87,7 +87,7 @@ ln -s /etc/php5/mods-available/mailparse.ini /etc/php5/fpm/conf.d/20-mailparse.i
 sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php5/fpm/php.ini
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php5/fpm/php.ini
 sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
-sed -i "s/memory_limit = .*/memory_limit = 512M/" /etc/php5/fpm/php.ini
+sed -i "s/memory_limit = .*/memory_limit = 128M/" /etc/php5/fpm/php.ini
 sed -i "s/;date.timezone.*/date.timezone = UTC/" /etc/php5/fpm/php.ini
 
 echo "xdebug.remote_enable = 1" >> /etc/php5/fpm/conf.d/20-xdebug.ini
@@ -173,14 +173,3 @@ apt-get install -y redis-server memcached beanstalkd
 # Configure Beanstalkd
 sudo sed -i "s/#START=yes/START=yes/" /etc/default/beanstalkd
 sudo /etc/init.d/beanstalkd start
-
-# Enable Swap Memory
-/bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
-/sbin/mkswap /var/swap.1
-/sbin/swapon /var/swap.1
-
-# Minimize The Disk Image
-echo "Minimizing disk image..."
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -f /EMPTY
-sync
