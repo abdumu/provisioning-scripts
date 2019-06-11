@@ -107,7 +107,7 @@ apt-get install -y redis-server
 /sbin/mkswap /var/swap.1
 /sbin/swapon /var/swap.1
 
-echo "export $HOME/.composer/vendor/bin:$PATH" >> ~/.bash_profile
+echo 'export $HOME/.composer/vendor/bin:$PATH' >> ~/.bash_profile
 
 mkdir /apps
 mkdir /apps/test
