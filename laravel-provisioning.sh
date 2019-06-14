@@ -216,6 +216,8 @@ sudo service nginx restart
 adduser "$DEPLOYER_USERNAME" --gecos '' --disabled-password -d
 echo "$DEPLOYER_USERNAME:$DEPLOYER_PASSWORD" | sudo chpasswd
 
+usermod -a -G www-data "$DEPLOYER_USERNAME"
+
 #add ssh public key to access new user for deployment matter
 mkdir -p /home/"$DEPLOYER_USERNAME"/.ssh
 chmod 700 /home/"$DEPLOYER_USERNAME"/.ssh
